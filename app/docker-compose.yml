@@ -1,0 +1,88 @@
+# ===========================================================================
+# AI Financial Coach — full containerised stack
+#   frontend (nginx + built SPA)  ->  backend (FastAPI)  ->  Postgres + Qdrant
+#
+# Quick start:
+#   1. (optional) cp .env.example .env   and add your OPENROUTER_API_KEY
+#   2. docker compose up --build
+#   3. open http://localhost:5173        (API docs at http://localhost:8000/docs)
+#
+# Every external key is OPTIONAL — the app runs fully with deterministic
+# reasoning even with no keys set. Setting OPENROUTER_API_KEY lights up the
+# LLM features automatically.
+# ===========================================================================
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: coach
+      POSTGRES_PASSWORD: coach
+      POSTGRES_DB: financial_coach
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U coach -d financial_coach"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    restart: unless-stopped
+    volumes:
+      - qdrantdata:/qdrant/storage
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/6333' 2>/dev/null || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 20s
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    # Exposed so you can reach Swagger docs directly at http://localhost:8000/docs
+    ports:
+      - "8000:8000"
+    environment:
+      # ---- LLM (optional): enables routing, narration, categorization, streaming
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OPENROUTER_BASE_URL: ${OPENROUTER_BASE_URL:-https://openrouter.ai/api/v1}
+      COACH_MODEL: ${COACH_MODEL:-anthropic/claude-opus-4-8}
+      ROUTER_MODEL: ${ROUTER_MODEL:-anthropic/claude-3.5-haiku}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      # ---- Postgres-backed analytics + multi-user persistence
+      # (plain postgresql:// — SQLAlchemy defaults to the installed psycopg2 driver)
+      DATABASE_URL: postgresql://coach:coach@db:5432/financial_coach
+      # ---- Qdrant vector search (first run downloads the embedding model)
+      QDRANT_URL: http://qdrant:6333
+      QDRANT_COLLECTION: ${QDRANT_COLLECTION:-financial_docs}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-BAAI/bge-small-en-v1.5}
+      # ---- Auth
+      JWT_SECRET: ${JWT_SECRET:-change-me-to-a-long-random-string}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-10080}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      OAUTH_REDIRECT_URL: ${OAUTH_REDIRECT_URL:-http://localhost:8000/auth/google/callback}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:5173}
+      # ---- CORS (frontend origin)
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://127.0.0.1:5173}
+    depends_on:
+      db:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      backend:
+        condition: service_started
+
+volumes:
+  pgdata:
+  qdrantdata:

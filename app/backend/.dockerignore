@@ -1,0 +1,23 @@
+# Keep the build context small and the image clean.
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local state — never bake host databases / secrets into the image.
+.env
+*.db
+*.sqlite
+*.sqlite3
+data/
+
+# Tooling
+.git/
+.gitignore
+run.sh
+*.log

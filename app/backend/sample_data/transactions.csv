@@ -1,0 +1,55 @@
+date,description,amount,category,type
+2024-01-01,Salary Credit - Infosys Ltd,120000.00,salary,income
+2024-01-02,Rent - Prestige Apartments,28000.00,rent,expense
+2024-01-03,BigBasket Groceries,4850.00,groceries,expense
+2024-01-04,Swiggy Order,720.00,food,expense
+2024-01-05,Jio Recharge,399.00,utilities,expense
+2024-01-06,Airtel Broadband,1199.00,utilities,expense
+2024-01-07,BESCOM Electricity Bill,1820.00,utilities,expense
+2024-01-08,Ola Ride,360.00,transport,expense
+2024-01-09,Indian Oil Petrol,3000.00,transport,expense
+2024-01-10,Amazon.in Order,2480.00,shopping,expense
+2024-01-12,Netflix Subscription,649.00,subscriptions,expense
+2024-01-14,Zomato Order,560.00,food,expense
+2024-01-15,Groww SIP - Axis Bluechip,15000.00,investment,expense
+2024-01-16,Zerodha ELSS Mirae Tax Saver,5000.00,investment,expense
+2024-01-18,Apollo Pharmacy,680.00,health,expense
+2024-01-20,LIC Premium,2500.00,insurance,expense
+2024-01-25,HDFC Credit Card EMI,6500.00,emi,expense
+2024-01-28,Personal Loan EMI - Bajaj Finserv,9000.00,loan,expense
+2024-02-01,Salary Credit - Infosys Ltd,120000.00,salary,income
+2024-02-02,Rent - Prestige Apartments,28000.00,rent,expense
+2024-02-03,Blinkit Groceries,1240.00,groceries,expense
+2024-02-04,BigBasket Groceries,3920.00,groceries,expense
+2024-02-05,Jio Recharge,399.00,utilities,expense
+2024-02-06,Airtel Broadband,1199.00,utilities,expense
+2024-02-07,BESCOM Electricity Bill,2010.00,utilities,expense
+2024-02-08,Uber Ride,520.00,transport,expense
+2024-02-09,Indian Oil Petrol,2800.00,transport,expense
+2024-02-11,Flipkart Order,3300.00,shopping,expense
+2024-02-12,Netflix Subscription,649.00,subscriptions,expense
+2024-02-13,Hotstar Subscription,299.00,subscriptions,expense
+2024-02-14,Swiggy Order,890.00,food,expense
+2024-02-15,Groww SIP - Axis Bluechip,15000.00,investment,expense
+2024-02-16,Zerodha ELSS Mirae Tax Saver,5000.00,investment,expense
+2024-02-19,Apollo Pharmacy,1120.00,health,expense
+2024-02-20,LIC Premium,2500.00,insurance,expense
+2024-02-25,HDFC Credit Card EMI,6500.00,emi,expense
+2024-02-28,Personal Loan EMI - Bajaj Finserv,9000.00,loan,expense
+2024-03-01,Salary Credit - Infosys Ltd,120000.00,salary,income
+2024-03-02,Rent - Prestige Apartments,28000.00,rent,expense
+2024-03-03,BigBasket Groceries,5100.00,groceries,expense
+2024-03-04,Zomato Order,640.00,food,expense
+2024-03-05,Jio Recharge,399.00,utilities,expense
+2024-03-06,Airtel Broadband,1199.00,utilities,expense
+2024-03-07,BESCOM Electricity Bill,1750.00,utilities,expense
+2024-03-08,Rapido Ride,180.00,transport,expense
+2024-03-09,Indian Oil Petrol,3200.00,transport,expense
+2024-03-10,Myntra Order,2650.00,shopping,expense
+2024-03-12,Netflix Subscription,649.00,subscriptions,expense
+2024-03-15,Groww SIP - Axis Bluechip,15000.00,investment,expense
+2024-03-16,Zerodha ELSS Mirae Tax Saver,5000.00,investment,expense
+2024-03-18,MakeMyTrip Flight Booking,8200.00,travel,expense
+2024-03-20,LIC Premium,2500.00,insurance,expense
+2024-03-25,HDFC Credit Card EMI,6500.00,emi,expense
+2024-03-28,Personal Loan EMI - Bajaj Finserv,9000.00,loan,expense

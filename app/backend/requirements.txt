@@ -1,0 +1,33 @@
+# Web framework
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-multipart==0.0.20
+
+# Data / config / validation
+pydantic==2.10.4
+pydantic-settings==2.7.1
+python-dotenv==1.0.1
+pandas==2.2.3
+numpy==1.26.4          # pinned: fastembed needs numpy<2; avoids resolver re-touching it on Py3.9
+email-validator==2.2.0
+
+# HTTP client (OpenRouter LLM calls + Google OAuth)
+httpx==0.28.1
+
+# Persistence (SQLite by default; install a Postgres driver to use Postgres)
+SQLAlchemy==2.0.36
+psycopg2-binary==2.9.10            # only needed for postgresql:// DATABASE_URL
+
+# Document parsing
+pypdf==5.1.0
+
+# LangGraph multi-agent orchestration (falls back to asyncio if absent)
+langgraph==0.2.60
+
+# Qdrant vector search + fastembed embeddings (falls back to TF-IDF if absent).
+# fastembed pulls onnxruntime; if it fails to install on your platform, remove
+# this line — the app automatically uses the pure-Python TF-IDF retriever.
+qdrant-client[fastembed]==1.12.1
+
+# Optional legacy LLM layer (direct Anthropic). OpenRouter is preferred.
+anthropic==0.69.0

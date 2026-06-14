@@ -1,8 +1,0 @@
-{
-  "name":"financial-coach-frontend",
-  "private": true,
-  "scripts": {
-    "dev":"vite",
-    "build":"vite build"
-  }
-}

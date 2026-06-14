@@ -45,13 +45,18 @@ services:
     # Exposed so you can reach Swagger docs directly at http://localhost:8000/docs
     ports:
       - "8000:8000"
+    # Load the backend's own .env (LLM keys, model choices, etc.) if present.
+    # Marked optional so the stack still boots with no file — every key is
+    # optional. NOTE: keys set in `environment:` below override env_file, so the
+    # LLM keys are intentionally NOT listed there (an empty default would clobber
+    # the values supplied here). Only container-network pins live in environment.
+    env_file:
+      - path: ./backend/.env
+        required: false
     environment:
-      # ---- LLM (optional): enables routing, narration, categorization, streaming
-      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
-      OPENROUTER_BASE_URL: ${OPENROUTER_BASE_URL:-https://openrouter.ai/api/v1}
-      COACH_MODEL: ${COACH_MODEL:-anthropic/claude-opus-4-8}
-      ROUTER_MODEL: ${ROUTER_MODEL:-anthropic/claude-3.5-haiku}
-      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      # ---- LLM keys (OPENROUTER_API_KEY, *_MODEL, ANTHROPIC_API_KEY) come from
+      # backend/.env via env_file above; config.py supplies defaults if unset.
+      # They are deliberately omitted here so an empty default cannot clobber them.
       # ---- Postgres-backed analytics + multi-user persistence
       # (plain postgresql:// — SQLAlchemy defaults to the installed psycopg2 driver)
       DATABASE_URL: postgresql://coach:coach@db:5432/financial_coach
